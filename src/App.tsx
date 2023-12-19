@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './App.css';
 import { Layout } from './components/Layout/Layout';
-import Providers from './Providers';
+import Providers from './Providers/Providers';
 
 const App = () => {
   return (
