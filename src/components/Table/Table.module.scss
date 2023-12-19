@@ -1,0 +1,16 @@
+@import '../../constants/themeTokens.module.scss';
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.tableWrapper {
+  display: grid;
+  justify-content: center;
+  margin-top: 40px;
+}
