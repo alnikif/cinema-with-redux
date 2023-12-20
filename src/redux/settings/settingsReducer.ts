@@ -1,15 +1,18 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {DEFAULT_THEME, Themes} from "../../constants/theme";
 import {DEFAULT_VIEW, PageViews} from "../../Providers/ViewProvider";
+import {DEFAULT_PAGINATION, PaginationTypes} from "../../Providers/PaginationProvider";
 
 type SettingsSliceType = {
     theme: Themes;
     view: PageViews;
+    pagination: PaginationTypes
 }
 
 const initialState: SettingsSliceType = {
     theme: DEFAULT_THEME,
-    view: DEFAULT_VIEW
+    view: DEFAULT_VIEW,
+    pagination: DEFAULT_PAGINATION
 
 }
 
@@ -20,15 +23,20 @@ const settingsSlice = createSlice({
         setTheme: (state, action: PayloadAction<Themes>) => {
             state.theme = action.payload
         },
-        setView: (state, action: PayloadAction<PageViews>) =>{
+        setView: (state, action: PayloadAction<PageViews>) => {
             state.view = action.payload
+        },
+        setPagination: (state , action: PayloadAction<PaginationTypes>) => {
+            state.pagination = action.payload
         }
-    },
+    }
+
 })
 // now available:
 export const {
     setTheme,
-    setView
+    setView,
+    setPagination
 
 } = settingsSlice.actions;
 

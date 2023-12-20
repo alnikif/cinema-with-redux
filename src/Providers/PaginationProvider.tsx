@@ -12,19 +12,6 @@ export const paginations = [
 
 export const DEFAULT_PAGINATION = PaginationTypes.manual;
 
-export type PaginationContextType = {
-    pagination: PaginationTypes;
-    setPagination: (nextPagination: PaginationTypes) => void;
-};
-
-const defaultPaginationContext = {
-    pagination: DEFAULT_PAGINATION,
-    setPagination: () => {
-        //
-    }
-};
-
-export const PaginationContext = createContext<PaginationContextType>(defaultPaginationContext);
 
 type ProvidersType = {
     readonly children: ReactNode;
@@ -33,15 +20,5 @@ type ProvidersType = {
 export const PaginationProvider: FC<ProvidersType> = (props) => {
     const { children } = props;
 
-    const [pagination, setPagination] = useState<PaginationTypes>(defaultPaginationContext.pagination);
-
-    const paginationContextValue = useMemo(
-        () => ({
-            pagination,
-            setPagination
-        }),
-        [pagination]
-    );
-
-    return <PaginationContext.Provider value={paginationContextValue}>{children}</PaginationContext.Provider>;
+    return <>{children}</>;
 };
