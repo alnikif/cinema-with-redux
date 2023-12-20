@@ -4,6 +4,10 @@ import {changeThemesConstants} from "../utils/theme-utils";
 import {useSelector} from "react-redux";
 import {selectTheme} from "../redux/settings/settingsSelectors";
 
+type ProvidersType = {
+    readonly children: ReactNode;
+};
+
 const ThemeProvider: FC<ProvidersType> = (props) => {
     const { children } = props;
 
@@ -26,8 +30,6 @@ const ThemeProvider: FC<ProvidersType> = (props) => {
     )
 };
 
-type ProvidersType = {
-    readonly children: ReactNode;
-};
+
 
 export default ThemeProvider;

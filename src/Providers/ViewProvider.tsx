@@ -12,19 +12,19 @@ export const views = [
 
 export const DEFAULT_VIEW = PageViews.card;
 
-export type ViewContextType = {
-  view: PageViews;
-  setView: (nextView: PageViews) => void;
-};
+// export type ViewContextType = {
+//   view: PageViews;
+//   setView: (nextView: PageViews) => void;
+// };
 
-const defaultViewContext = {
-  view: DEFAULT_VIEW,
-  setView: () => {
-    //
-  }
-};
+// const defaultViewContext = {
+//   view: DEFAULT_VIEW,
+//   setView: () => {
+//     //
+//   }
+// };
 
-export const ViewContext = createContext<ViewContextType>(defaultViewContext);
+// export const ViewContext = createContext<ViewContextType>(defaultViewContext);
 
 type ProvidersType = {
   readonly children: ReactNode;
@@ -33,15 +33,15 @@ type ProvidersType = {
 export const ViewProvider: FC<ProvidersType> = (props) => {
   const { children } = props;
 
-  const [view, setView] = useState<PageViews>(defaultViewContext.view);
+  // const [view, setView] = useState<PageViews>(defaultViewContext.view);
 
-  const viewContextValue = useMemo(
-    () => ({
-      view,
-      setView
-    }),
-    [view]
-  );
+  // const viewContextValue = useMemo(
+  //   () => ({
+  //     view,
+  //     setView
+  //   }),
+  //   [view]
+  // );
 
-  return <ViewContext.Provider value={viewContextValue}>{children}</ViewContext.Provider>;
+  return <>{children}</>;
 };
