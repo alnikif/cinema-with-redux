@@ -13,10 +13,10 @@ import usePagination from '../../hooks/usePagination';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import { Pagination } from '../../components/Pagination/Pagination';
 import styles from './RickAndMorty.module.scss';
-import {PaginationContext, paginations, PaginationTypes} from "../../Providers/PaginationProvider";
+import { paginations, PaginationTypes} from "../../Providers/PaginationProvider";
 import {useDispatch, useSelector} from "react-redux";
-import {selectView} from "../../redux/settings/settingsSelectors";
-import {setView} from "../../redux/settings/settingsReducer";
+import {selectPagination, selectView} from "../../redux/settings/settingsSelectors";
+import {setPagination, setView} from "../../redux/settings/settingsReducer";
 
 
 type RickAndMortyResponseMetaType = {
@@ -61,7 +61,13 @@ export const RickAndMorty = () => {
         label: title
     }));
 
-    const { pagination, setPagination } = useContext(PaginationContext);
+    // const { pagination, setPagination } = useContext(PaginationContext);
+
+    const pagination = useSelector(selectPagination);
+    const changePagination = (selectedPagination: PaginationTypes) => {
+        dispatch(setPagination(selectedPagination))
+    }
+
 
     const paginationOptions = paginations.map(({ key, title }) => ({
         id: key,
@@ -128,7 +134,7 @@ export const RickAndMorty = () => {
                     <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={changeView} />
                 </div>
                 <div>
-                    <Dropdown selectedOptionId={pagination} options={paginationOptions} onSelect={setPagination} />
+                    <Dropdown selectedOptionId={pagination} options={paginationOptions} onSelect={changePagination} />
                 </div>
             </div>
 
