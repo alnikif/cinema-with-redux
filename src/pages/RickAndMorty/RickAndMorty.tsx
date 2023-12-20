@@ -3,7 +3,7 @@ import axios from 'axios';
 import uniqBy from 'lodash/uniqBy';
 
 import { Table } from '../../components/Table/Table';
-import { PageViews, ViewContext, views } from '../../Providers/ViewProvider';
+import { PageViews, views } from '../../Providers/ViewProvider';
 import { RickAndMortyType } from '../../types/rickAndMortyTypes';
 import { NotificationError } from '../../components/NotificationError/NotificationError';
 import { RickAndMortyCards } from '../../components/Cards/RickAndMortyCards/RickAndMortyCards';
@@ -14,6 +14,9 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import { Pagination } from '../../components/Pagination/Pagination';
 import styles from './RickAndMorty.module.scss';
 import {PaginationContext, paginations, PaginationTypes} from "../../Providers/PaginationProvider";
+import {useDispatch, useSelector} from "react-redux";
+import {selectView} from "../../redux/settings/settingsSelectors";
+import {setView} from "../../redux/settings/settingsReducer";
 
 
 type RickAndMortyResponseMetaType = {
@@ -47,7 +50,11 @@ export const RickAndMorty = () => {
     const { meta, results } = rickAndMortyData;
     const hasNextPage = !!meta.next;
 
-    const { view, setView } = useContext(ViewContext);
+    const view = useSelector(selectView);
+    const dispatch = useDispatch();
+    const changeView = (selectedView: PageViews) => {
+        dispatch(setView(selectedView))
+    }
 
     const viewsOptions = views.map(({ key, title }) => ({
         id: key,
@@ -118,7 +125,7 @@ export const RickAndMorty = () => {
         <div ref={setPageRef}>
             <div className={styles.dropdownWrapper}>
                 <div>
-                    <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={setView} />
+                    <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={changeView} />
                 </div>
                 <div>
                     <Dropdown selectedOptionId={pagination} options={paginationOptions} onSelect={setPagination} />

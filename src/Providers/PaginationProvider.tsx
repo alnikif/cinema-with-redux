@@ -1,4 +1,3 @@
-import {PageViews, ViewContext, ViewContextType} from "./ViewProvider";
 import React, {createContext, FC, ReactNode, useMemo, useState} from "react";
 
 export enum PaginationTypes {
