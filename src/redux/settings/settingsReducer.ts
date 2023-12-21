@@ -2,12 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {DEFAULT_THEME, Themes} from "../../constants/theme";
 import {DEFAULT_VIEW, PageViews} from "../../Providers/ViewProvider";
 import {DEFAULT_PAGINATION, PaginationTypes} from "../../Providers/PaginationProvider";
+import {SettingsSliceType} from "./settingsTypes";
 
-type SettingsSliceType = {
-    theme: Themes;
-    view: PageViews;
-    pagination: PaginationTypes
-}
 
 const initialState: SettingsSliceType = {
     theme: DEFAULT_THEME,
