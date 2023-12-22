@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {Header} from './Header/Header';
+import { Header } from './Header/Header';
 import Dropdown from '../Dropdown/Dropdown';
-import {Themes, themes} from '../../constants/theme';
+import { Themes, themes } from '../../constants/theme';
 import styles from './Layout.module.scss';
-import {useDispatch, useSelector} from "react-redux";
-import {selectTheme} from "../../redux/settings/settingsSelectors";
-import {setTheme} from "../../redux/settings/settingsReducer";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTheme } from '../../redux/settings/settingsSelectors';
+import { setTheme } from '../../redux/settings/settingsReducer';
 
 export enum NavItems {
   homePage = 'Home Page',
@@ -28,12 +28,12 @@ export const navItemsConfig = [
 ];
 
 export const Layout = () => {
-  const themesOptions= themes.map(({ key, title }) => ({
+  const themesOptions = themes.map(({ key, title }) => ({
     id: key,
     label: title
   }));
 
-  const  theme = useSelector(selectTheme);
+  const theme = useSelector(selectTheme);
   const dispatch = useDispatch();
   const changeTheme = (selectedTheme: Themes) => {
     dispatch(setTheme(selectedTheme));
@@ -45,7 +45,7 @@ export const Layout = () => {
         <Header navItemsConfig={navItemsConfig} />
       </div>
       <div className={styles.dropdownThemeWrapper}>
-        <Dropdown selectedOptionId={theme} options={themesOptions}  onSelect={changeTheme} />
+        <Dropdown selectedOptionId={theme} options={themesOptions} onSelect={changeTheme} />
       </div>
     </div>
   );

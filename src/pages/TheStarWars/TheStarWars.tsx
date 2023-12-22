@@ -8,9 +8,9 @@ import { StarWarsCards } from '../../components/Cards/StarWarsCards/StarWarsCard
 import { PageViews, views } from '../../Providers/ViewProvider';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import styles from './TheStarWars.module.scss';
-import {useDispatch, useSelector} from "react-redux";
-import {selectView} from "../../redux/settings/settingsSelectors";
-import {setView} from "../../redux/settings/settingsReducer";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectView } from '../../redux/settings/settingsSelectors';
+import { setView } from '../../redux/settings/settingsReducer';
 
 export const TheStarWars = () => {
   const [starWarsData, setStarWarsData] = useState<StarWarsType[]>([]);
@@ -18,9 +18,8 @@ export const TheStarWars = () => {
   const view = useSelector(selectView);
   const dispatch = useDispatch();
   const changeView = (selectedView: PageViews) => {
-    dispatch(setView(selectedView))
-  }
-
+    dispatch(setView(selectedView));
+  };
 
   const viewsOptions = views.map(({ key, title }) => ({
     id: key,

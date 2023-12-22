@@ -7,10 +7,10 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import { harryPotterTableConfig } from './harryPotterTableConfig';
 import { Table } from '../../components/Table/Table';
 import styles from './HarryPotter.module.scss';
-import {NotificationError} from "../../components/NotificationError/NotificationError";
-import {useDispatch, useSelector} from "react-redux";
-import {selectView} from "../../redux/settings/settingsSelectors";
-import {setView} from "../../redux/settings/settingsReducer";
+import { NotificationError } from '../../components/NotificationError/NotificationError';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectView } from '../../redux/settings/settingsSelectors';
+import { setView } from '../../redux/settings/settingsReducer';
 
 export const HarryPotter = () => {
   const [harryPotterData, setHarryPotterData] = useState<HarryPotterType[] | []>([]);
@@ -20,9 +20,8 @@ export const HarryPotter = () => {
   const view = useSelector(selectView);
   const dispatch = useDispatch();
   const changeView = (selectedView: PageViews) => {
-    dispatch(setView(selectedView))
-  }
-
+    dispatch(setView(selectedView));
+  };
 
   const viewsOptions = views.map(({ key, title }) => ({
     id: key,
@@ -30,18 +29,20 @@ export const HarryPotter = () => {
   }));
 
   useEffect(() => {
-    axios.get('https://hp-api.onrender.com/api/characters').then((response) => {
-      setHarryPotterData(response.data);
-      console.log(harryPotterData);
-    })
-    .catch((apiError: unknown) => {
-      if (apiError instanceof Error) {
-        setError(apiError);
-      }
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+    axios
+      .get('https://hp-api.onrender.com/api/characters')
+      .then((response) => {
+        setHarryPotterData(response.data);
+        console.log(harryPotterData);
+      })
+      .catch((apiError: unknown) => {
+        if (apiError instanceof Error) {
+          setError(apiError);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -54,9 +55,6 @@ export const HarryPotter = () => {
 
       <NotificationError title="Fetch Harry Potter error notification" message={error?.message} />
       {loading && <div>Loading...</div>}
-
     </>
-
-
-);
+  );
 };

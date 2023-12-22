@@ -4,7 +4,7 @@ type MastersCellProps = {
   readonly masters?: string[];
 };
 
-export const MastersCell: React.FC<MastersCellProps> = ({masters}) => {
+export const MastersCell: React.FC<MastersCellProps> = ({ masters }) => {
   if (Array.isArray(masters)) {
     return (
       <div>
@@ -14,6 +14,6 @@ export const MastersCell: React.FC<MastersCellProps> = ({masters}) => {
       </div>
     );
   } else {
-    return null
+    return null;
   }
-}
+};
