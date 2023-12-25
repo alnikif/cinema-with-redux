@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import styles from './Pagination.module.scss';
+import cx from 'classnames';
 
 export type PaginationPropsType = {
   readonly pagesLength: number;
@@ -18,7 +19,7 @@ export const Pagination: FC<PaginationPropsType> = (props) => {
   );
 
   return (
-    <div className={styles.paginationButtons}>
+    <div className={cx(styles.paginationButtons, loading && styles.loading)}>
       <button type="button" disabled={loading || currentPage === 1} onClick={() => onSelectPage(1)}>
         1
       </button>

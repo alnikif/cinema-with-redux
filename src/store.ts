@@ -1,10 +1,12 @@
 import { configureStore, AnyAction, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import settingsReducer from './redux/settings/settingsReducer';
 import rickAndMortyReducer from './redux/rickAndMorty/rickAndMortyReducer';
+import theStarWarsReducer from './redux/theStarWars/theStarWarsReducer';
 
 const rootReducer = {
   settings: settingsReducer,
-  rickAndMorty: rickAndMortyReducer
+  rickAndMorty: rickAndMortyReducer,
+  theStarWars: theStarWarsReducer
 };
 
 export const store = configureStore({
