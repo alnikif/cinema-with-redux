@@ -25,7 +25,6 @@ export const theStarWarsSlice = createSlice({
         const { results } = action.payload;
         state.list = results;
         state.listError = null;
-        console.log(results);
       }
     });
     builder.addCase(fetchTheStarWarsList.rejected, (state, action) => {

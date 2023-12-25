@@ -19,12 +19,12 @@ import {
   selectTheStarWarsList,
   selectTheStarWarsStatus
 } from '../../redux/theStarWars/theStarWarsSelectors';
+import { DispatchType } from '../../store';
+import { NotificationError } from '../../components/NotificationError/NotificationError';
 
 export const TheStarWars = () => {
-  // const [starWarsData, setStarWarsData] = useState<StarWarsType[]>([]);
-
   const view = useSelector(selectView);
-  const dispatch = useDispatch();
+  const dispatch: DispatchType = useDispatch();
   const changeView = (selectedView: PageViews) => {
     dispatch(setView(selectedView));
   };
@@ -47,24 +47,12 @@ export const TheStarWars = () => {
   }));
 
   useEffect(() => {
-    // axios
-    //   .get('https://rawcdn.githack.com/akabab/starwars-api/0.2.1/api/all.json')
-    //   .then((response) => {
-    //     const listCharacters = response?.data || [];
-    //     setStarWarsData(listCharacters);
-    //   })
-    //   .catch((apiError: unknown) => {
-    //     if (apiError instanceof Error) {
-    //     }
-    //   })
-    //   .finally(() => {
-    //     //
-    //   });
     onFetchTheStarWarsList();
   }, []);
 
   return (
     <div>
+      <NotificationError title="Fetch The Star Wars error notification" message={error?.message} />
       <div className={styles.dropdownViewWrapper}>
         <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={changeView} />
       </div>
