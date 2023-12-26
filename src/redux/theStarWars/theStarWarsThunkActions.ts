@@ -9,7 +9,7 @@ export const fetchTheStarWarsList = createAsyncThunk('theStarWars/fetchTheStarWa
     return { results };
   } catch (apiError) {
     if (apiError instanceof Error) {
-      thunkApi.rejectWithValue(apiError);
+      return thunkApi.rejectWithValue(apiError);
     }
   }
 });
