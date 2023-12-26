@@ -52,7 +52,7 @@ export const TheStarWars = () => {
 
   return (
     <div>
-      <NotificationError title="Fetch The Star Wars error notification" message={error?.message} />
+      {/*<NotificationError title="Fetch The Star Wars error notification" message={error?.message} />*/}
       <div className={styles.dropdownViewWrapper}>
         <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={changeView} />
       </div>
