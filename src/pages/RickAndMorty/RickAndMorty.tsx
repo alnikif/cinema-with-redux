@@ -8,7 +8,6 @@ import InfiniteLoader from '../../components/InfiniteLoader/InfiniteLoader';
 import { Table } from '../../components/Table/Table';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { PageViews, views } from '../../Providers/ViewProvider';
-import { NotificationError } from '../../components/NotificationError/NotificationError';
 import { RickAndMortyCards } from '../../components/Cards/RickAndMortyCards/RickAndMortyCards';
 import { setPagination, setView } from '../../redux/settings/settingsReducer';
 import { headerRickAndMortyRowConfig } from './rickAndMortyTableConfig';
@@ -16,7 +15,6 @@ import { paginations, PaginationTypes } from '../../Providers/PaginationProvider
 import { selectIsInfinityPagination, selectPagination, selectView } from '../../redux/settings/settingsSelectors';
 import {
   selectIsRickAndMortyLoading,
-  selectRickAndMortyError,
   selectRickAndMortyList,
   selectRickAndMortyMeta,
   selectRickAndMortyStatus
@@ -33,12 +31,11 @@ const rickAndMortySelectors = createStructuredSelector({
   results: selectRickAndMortyList,
   meta: selectRickAndMortyMeta,
   status: selectRickAndMortyStatus,
-  loading: selectIsRickAndMortyLoading,
-  error: selectRickAndMortyError
+  loading: selectIsRickAndMortyLoading
 });
 
 export const RickAndMorty = () => {
-  const { view, pagination, isInfinityPagination, results, meta, status, loading, error } = useSelector(rickAndMortySelectors);
+  const { view, pagination, isInfinityPagination, results, meta, status, loading } = useSelector(rickAndMortySelectors);
 
   const dispatch: DispatchType = useDispatch();
 
@@ -120,8 +117,6 @@ export const RickAndMorty = () => {
       {pagination === PaginationTypes.manual && (
         <Pagination loading={loading} pagesLength={meta.pages || 0} currentPage={Number(params.page)} onSelectPage={onSelectPage} />
       )}
-
-      <NotificationError title="Fetch Rick and Morty error notification" message={error?.message} />
 
       {loading && <div>Loading...</div>}
     </div>

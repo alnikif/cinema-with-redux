@@ -2,11 +2,13 @@ import { configureStore, AnyAction, ThunkAction, ThunkDispatch } from '@reduxjs/
 import settingsReducer from './redux/settings/settingsReducer';
 import rickAndMortyReducer from './redux/rickAndMorty/rickAndMortyReducer';
 import theStarWarsReducer from './redux/theStarWars/theStarWarsReducer';
+import notificationsReducer from './redux/notifications/reducer';
 
 const rootReducer = {
   settings: settingsReducer,
   rickAndMorty: rickAndMortyReducer,
-  theStarWars: theStarWarsReducer
+  theStarWars: theStarWarsReducer,
+  notifications: notificationsReducer
 };
 
 export const store = configureStore({
