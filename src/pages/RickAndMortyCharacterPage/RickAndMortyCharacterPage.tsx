@@ -1,46 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 import { RickAndMortyCard } from '../../components/Cards/RickAndMortyCards/Card/RickAndMortyCard';
 import { RickAndMortyType } from '../../types/rickAndMortyTypes';
+import { DispatchType } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import styles from './RickAndMortyCharacterPage.module.scss';
 
+import {
+  selectIsRickAndMortyCharacterPending,
+  selectRickAndMortyCharacterError,
+  selectRickAndMortyCharacterStatus,
+  selectRickAndMortyData
+} from '../../redux/rickAndMortyCharacter/selectors';
+import { fetchRickAndMortyData } from '../../redux/rickAndMortyCharacter/thunkActions';
+
 export const RickAndMortyCharacterPage = () => {
-  const [rickAndMortyCharacter, setRickAndMortyCharacter] = useState<RickAndMortyType | null>(null);
   const { characterId } = useParams();
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(false);
+  const dispatch: DispatchType = useDispatch();
+
+  const rickAndMortyCharacterSelectors = createStructuredSelector({
+    results: selectRickAndMortyData,
+    status: selectRickAndMortyCharacterStatus,
+    loading: selectIsRickAndMortyCharacterPending,
+    error: selectRickAndMortyCharacterError
+  });
+
+  const { results, status, loading, error } = useSelector(rickAndMortyCharacterSelectors);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`https://rickandmortyapi.com/api/character/${characterId}`)
-      .then((response) => {
-        const { data } = response;
-        setRickAndMortyCharacter(data);
-      })
-      .catch((apiError: unknown) => {
-        if (apiError instanceof Error) {
-          setError(apiError);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    dispatch(fetchRickAndMortyData(characterId));
   }, [characterId]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (!rickAndMortyCharacter) {
+  if (!results) {
     return <div>No data</div>;
   }
 
-  return (
-    <div className={styles.characterWrapper}>
-      <RickAndMortyCard characterData={rickAndMortyCharacter} />
-    </div>
-  );
+  return <div className={styles.characterWrapper}>{results && <RickAndMortyCard characterData={results} />}</div>;
 };

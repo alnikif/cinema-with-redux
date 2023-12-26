@@ -5,7 +5,7 @@ import { showErrorNotification } from '../notifications/actions';
 
 export const fetchTheStarWarsList = createAsyncThunk('theStarWars/fetchTheStarWarsList', async (_, thunkApi) => {
   try {
-    const response = await axios.get(`https://rawcdn.githack.com/iiiakabab/starwars-api/0.2.1/api/all.json`);
+    const response = await axios.get(`https://rawcdn.githack.com/akabab/starwars-api/0.2.1/api/all.json`);
     const results = response?.data as StarWarsType[];
     return { results };
   } catch (apiError) {

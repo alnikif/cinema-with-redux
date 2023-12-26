@@ -3,12 +3,14 @@ import settingsReducer from './redux/settings/settingsReducer';
 import rickAndMortyReducer from './redux/rickAndMorty/rickAndMortyReducer';
 import theStarWarsReducer from './redux/theStarWars/theStarWarsReducer';
 import notificationsReducer from './redux/notifications/reducer';
+import rickAndMortyCharacterReducer from './redux/rickAndMortyCharacter/reducer';
 
 const rootReducer = {
   settings: settingsReducer,
   rickAndMorty: rickAndMortyReducer,
   theStarWars: theStarWarsReducer,
-  notifications: notificationsReducer
+  notifications: notificationsReducer,
+  rickAndMortyCharacter: rickAndMortyCharacterReducer
 };
 
 export const store = configureStore({
