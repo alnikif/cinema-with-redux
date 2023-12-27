@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import cx from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './Dropdown.module.scss';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 type OptionItemType<T> = {
   id: T;
@@ -19,6 +20,7 @@ type DropdownPropsTypes<T> = {
 const Dropdown = <T extends unknown>(props: DropdownPropsTypes<T>) => {
   const { selectedOptionId, options, onSelect } = props;
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const selectedOption = useMemo(() => {
@@ -26,6 +28,7 @@ const Dropdown = <T extends unknown>(props: DropdownPropsTypes<T>) => {
     return options.find((item) => item.id == selectedOptionId) || null;
   }, [options, selectedOptionId]);
 
+  const onClose = () => setIsOpen(false);
   const onToggleDropdown = () => setIsOpen(!isOpen);
 
   const onSelectOption = (optionId: T) => {
@@ -33,8 +36,14 @@ const Dropdown = <T extends unknown>(props: DropdownPropsTypes<T>) => {
     setIsOpen(false);
   };
 
+  useOutsideClick({
+    ref: dropdownRef,
+    isActive: isOpen,
+    callback: onClose
+  });
+
   return (
-    <div className={styles.dropdown}>
+    <div ref={dropdownRef} className={styles.dropdown}>
       <div className={styles.dropdownHeaderWrapper}>
         <FontAwesomeIcon icon={faChevronCircleDown} />
         <div className={styles.dropdownHeader} onClick={onToggleDropdown}>
