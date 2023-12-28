@@ -11,14 +11,32 @@ import { NotificationError } from '../../components/NotificationError/Notificati
 import { useDispatch, useSelector } from 'react-redux';
 import { selectView } from '../../redux/settings/settingsSelectors';
 import { setView } from '../../redux/settings/settingsReducer';
+import { DispatchType } from '../../store';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectHarryPotterData,
+  selectHarryPotterError,
+  selectHarryPotterStatus,
+  selectIsHarryPotterLoading
+} from '../../redux/harryPotter/selectors';
+import { fetchHarryPotterList } from '../../redux/harryPotter/thunkActions';
 
 export const HarryPotter = () => {
-  const [harryPotterData, setHarryPotterData] = useState<HarryPotterType[] | []>([]);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(false);
+  // const [harryPotterData, setHarryPotterData] = useState<HarryPotterType[] | []>([]);
+  // const [error, setError] = useState<Error | null>(null);
+  // const [loading, setLoading] = useState(false);
+
+  const harryPotterSelectors = createStructuredSelector({
+    results: selectHarryPotterData,
+    status: selectHarryPotterStatus,
+    loading: selectIsHarryPotterLoading,
+    error: selectHarryPotterError
+  });
+
+  const { results, status, loading, error } = useSelector(harryPotterSelectors);
 
   const view = useSelector(selectView);
-  const dispatch = useDispatch();
+  const dispatch: DispatchType = useDispatch();
   const changeView = (selectedView: PageViews) => {
     dispatch(setView(selectedView));
   };
@@ -29,20 +47,7 @@ export const HarryPotter = () => {
   }));
 
   useEffect(() => {
-    axios
-      .get('https://hp-api.onrender.com/api/characters')
-      .then((response) => {
-        setHarryPotterData(response.data);
-        console.log(harryPotterData);
-      })
-      .catch((apiError: unknown) => {
-        if (apiError instanceof Error) {
-          setError(apiError);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    dispatch(fetchHarryPotterList());
   }, []);
 
   return (
@@ -50,8 +55,8 @@ export const HarryPotter = () => {
       <div className={styles.dropdownViewWrapper}>
         <Dropdown selectedOptionId={view} options={viewsOptions} onSelect={changeView} />
       </div>
-      {view === PageViews.table && <Table title="Harry Potter" data={harryPotterData} tableConfig={harryPotterTableConfig} />}
-      {view === PageViews.card && <HarryPotterCards data={harryPotterData} title="Harry Potter" />}
+      {view === PageViews.table && <Table title="Harry Potter" data={results} tableConfig={harryPotterTableConfig} />}
+      {view === PageViews.card && <HarryPotterCards data={results} title="Harry Potter" />}
 
       <NotificationError title="Fetch Harry Potter error notification" message={error?.message} />
       {loading && <div>Loading...</div>}
