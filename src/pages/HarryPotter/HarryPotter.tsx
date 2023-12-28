@@ -22,10 +22,6 @@ import {
 import { fetchHarryPotterList } from '../../redux/harryPotter/thunkActions';
 
 export const HarryPotter = () => {
-  // const [harryPotterData, setHarryPotterData] = useState<HarryPotterType[] | []>([]);
-  // const [error, setError] = useState<Error | null>(null);
-  // const [loading, setLoading] = useState(false);
-
   const harryPotterSelectors = createStructuredSelector({
     results: selectHarryPotterData,
     status: selectHarryPotterStatus,

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { StarWarsType } from '../../types/starWarsTypes';
 import { TheStarWarsCharacter } from './TheStarWarsCharacter/TheStarWarsCharacter';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchType } from '../../store';
@@ -17,6 +16,7 @@ import {
 
 export const TheStarWarsCharacterPage = () => {
   const { characterId } = useParams();
+  const dispatch: DispatchType = useDispatch();
 
   const theStarWarsCharacterSelectors = createStructuredSelector({
     results: selectTheStarWarsCharacterData,
@@ -26,8 +26,6 @@ export const TheStarWarsCharacterPage = () => {
   });
 
   const { results, status, loading, error } = useSelector(theStarWarsCharacterSelectors);
-
-  const dispatch: DispatchType = useDispatch();
 
   useEffect(() => {
     dispatch(fetchTheStarWarsData(characterId));
