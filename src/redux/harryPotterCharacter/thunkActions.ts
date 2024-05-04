@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import { showErrorNotification } from '../notifications/actions';
 import { StarWarsType } from '../../types/starWarsTypes';
 import { HarryPotterType } from '../../types/harryPotterTypes';
+import { RickAndMortyType } from '../../types/rickAndMortyTypes';
 
 export const fetchHarryPotterCharacterData = createAsyncThunk(
   'harryPotter/fetchHarryPotterCharacterData',
